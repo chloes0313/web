@@ -14,7 +14,7 @@
 	사진1 : <input type="file" name="image"><br>
 	사진2 : <input type="file" name="image"><br>
 	사진3 : <input type="file" name="image"><br>
-	<input type="submit" value="UPLOAD">
+	<input type="submit" value="사진업로드">
 </form>
 
 <h2> 1개의 사진 업로드 폼 </h2>
