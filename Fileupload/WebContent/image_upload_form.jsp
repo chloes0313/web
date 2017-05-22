@@ -6,7 +6,7 @@
 <title>Insert title hesre</title>
 </head>
 <body>
-<h2> 여러개의 사진 업로드 폼 </h2>
+<h2> 여러개의 사진 업로드 폼 (깃허브)</h2>
 <!-- 업로드VO를 만들어서 처리 -->
 <form action="${ initParam.rootPath }/imageupload" method="post" enctype="multipart/form-data">
 	업로더 : <input type="text" name="uploader"><br>
