@@ -21,6 +21,23 @@ function searchById(){
 	var myid = document.getElementById("myid");
 	myid.value = 30300;
 }
+
+function searchByTagName(tagName){
+	var list = document.getElementsByTagName(tagName);	//태그 이름으로 Node들 조회(배열로 리턴)
+	for(var i = 0; i <list.length; i++){
+		list[i].value = tagName+": "+list[i].nodeName;	// DOM객체.nodeName ->
+		
+	}
+}
+
+function searchByClassName(className){
+	var list = document.getElementsByClassName(className);
+	for(var i=0; i < list.length; i++){
+		// 객채명.속성명
+		list[i].style= "color:white; background:pink;";
+	}
+	
+}
 </script>
 </head>
 <body>
@@ -30,7 +47,7 @@ name=name :
 <input type="text" name="name">
 <input type="text" name="name">
 <input type="text" name="name">
-<p>
+<p>	<!-- myid의 부모노드->p -->
 id=myid : 
 <input type="text" name="age" id="myid">
 <input type="text" name="age" id="myid">
