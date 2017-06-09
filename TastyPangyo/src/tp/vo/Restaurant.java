@@ -1,198 +1,298 @@
 package tp.vo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Restaurant implements Serializable{
-	private int restaurantId;
-	private String foodCategory;
-	private String location;
-	private String restaurantName;
-	private String restaurantTel;
-	private String restaurantIntro;
-	private int hits;
-	
-	// JOIN위한 변수
-	private List<Review> reviewList;
-	private List<RestaurantImage> imageList;
-	
-	
-	
-	
-	public Restaurant(){}
+   private int restaurantId;          //시퀀스 사용, PK
+   private String foodCategory;
+   private String location;
+   private String restaurantName;
+   private int hits;
+   private String restaurantTelNum;
+   private String introduction;
+   private String menu;
+   private String image;
+   private double avgKostar;
 
-	public Restaurant(int restaurantId, String foodCategory, String location, String restaurantName,
-			String restaurantTel, String restaurantIntro, int hits) {
-		this.restaurantId = restaurantId;
-		this.foodCategory = foodCategory;
-		this.location = location;
-		this.restaurantName = restaurantName;
-		this.restaurantTel = restaurantTel;
-		this.restaurantIntro = restaurantIntro;
-		this.hits = hits;
-	}
-	
-	
+   ArrayList<Review> reviews;            //조인 위한 리뷰들
+   ArrayList<String> images;           //조인 위한 사진들 
 
-	public Restaurant(int restaurantId, String foodCategory, String location, String restaurantName,
-			String restaurantTel, String restaurantIntro, int hits, List<Review> reviewList,
-			List<RestaurantImage> imageList) {
-		this.restaurantId = restaurantId;
-		this.foodCategory = foodCategory;
-		this.location = location;
-		this.restaurantName = restaurantName;
-		this.restaurantTel = restaurantTel;
-		this.restaurantIntro = restaurantIntro;
-		this.hits = hits;
-		this.reviewList = reviewList;
-		this.imageList = imageList;
-	}
+   
+   public Restaurant(){}
+   
+   public Restaurant(int restaurantId, String foodCategory, String location, String restaurantName, int hits,
+         String restaurantTelNum, String introduction, String menu, ArrayList<String> images) {
+      this.restaurantId = restaurantId;
+      this.foodCategory = foodCategory;
+      this.location = location;
+      this.restaurantName = restaurantName;
+      this.hits = hits;
+      this.restaurantTelNum = restaurantTelNum;	
+      this.introduction = introduction;
+      this.menu = menu;
+      this.images = images;
+   }
+   
+   public Restaurant(int restaurantId, String foodCategory, String location, String restaurantName, int hits,
+		String restaurantTelNum, String introduction, String menu, double avgKostar) {
+	super();
+	this.restaurantId = restaurantId;
+	this.foodCategory = foodCategory;
+	this.location = location;
+	this.restaurantName = restaurantName;
+	this.hits = hits;
+	this.restaurantTelNum = restaurantTelNum;
+	this.introduction = introduction;
+	this.menu = menu;
+	this.avgKostar = avgKostar;
+}
 
-	public int getRestaurantId() {
-		return restaurantId;
-	}
+public Restaurant(int restaurantId, String foodCategory, String location, String restaurantName, int hits,
+         String restaurantTelNum, String introduction, String menu, ArrayList<Review> reviews,
+         ArrayList<String> images) {
+      this.restaurantId = restaurantId;
+      this.foodCategory = foodCategory;
+      this.location = location;
+      this.restaurantName = restaurantName;
+      this.hits = hits;
+      this.restaurantTelNum = restaurantTelNum;
+      this.introduction = introduction;
+      this.menu = menu;
+      this.reviews = reviews;
+      this.images = images;
+   }
+   public Restaurant(int restaurantId, String foodCategory, String location, String restaurantName, int hits,
+         String restaurantTelNum, String introduction, String menu) {
+      this.restaurantId = restaurantId;
+      this.foodCategory = foodCategory;
+      this.location = location;
+      this.restaurantName = restaurantName;
+      this.hits = hits;
+      this.restaurantTelNum = restaurantTelNum;
+      this.introduction = introduction;
+      this.menu = menu;
+   }
+   
+   
+   
+   
+   
+   public Restaurant(int restaurantId, String foodCategory, String location, String restaurantName, int hits,
+         String restaurantTelNum, String introduction, String menu, String image, double avgKostar,
+         ArrayList<Review> reviews, ArrayList<String> images) {
+      this.restaurantId = restaurantId;
+      this.foodCategory = foodCategory;
+      this.location = location;
+      this.restaurantName = restaurantName;
+      this.hits = hits;
+      this.restaurantTelNum = restaurantTelNum;
+      this.introduction = introduction;
+      this.menu = menu;
+      this.image = image;
+      this.avgKostar = avgKostar;
+      this.reviews = reviews;
+      this.images = images;
+   }
 
-	public void setRestaurantId(int restaurantId) {
-		this.restaurantId = restaurantId;
-	}
+   public Restaurant(int restaurantId, String image ){
+      this.restaurantId = restaurantId;
+      this.image=  image;
+   }
+   
 
-	public String getFoodCategory() {
-		return foodCategory;
-	}
+   public Restaurant(int restaurantId, ArrayList<String> images) {
+      super();
+      this.restaurantId = restaurantId;
+      this.images = images;
+   }
 
-	public void setFoodCategory(String foodCategory) {
-		this.foodCategory = foodCategory;
-	}
+   public int getRestaurantId() {
+      return restaurantId;
+   }
 
-	public String getLocation() {
-		return location;
-	}
+   public void setRestaurantId(int restaurantId) {
+      this.restaurantId = restaurantId;
+   }
 
-	public void setLocation(String location) {
-		this.location = location;
-	}
+   public String getFoodCategory() {
+      return foodCategory;
+   }
 
-	public String getRestaurantName() {
-		return restaurantName;
-	}
+   public void setFoodCategory(String foodCategory) {
+      this.foodCategory = foodCategory;
+   }
 
-	public void setRestaurantName(String restaurantName) {
-		this.restaurantName = restaurantName;
-	}
+   public String getLocation() {
+      return location;
+   }
 
-	public int getHits() {
-		return hits;
-	}
+   public void setLocation(String location) {
+      this.location = location;
+   }
 
-	public void setHits(int hits) {
-		this.hits = hits;
-	}
+   public String getRestaurantName() {
+      return restaurantName;
+   }
 
-	public String getRestaurantTel() {
-		return restaurantTel;
-	}
+   public void setRestaurantName(String restaurantName) {
+      this.restaurantName = restaurantName;
+   }
 
-	public void setRestaurantTel(String restaurantTel) {
-		this.restaurantTel = restaurantTel;
-	}
+   public int getHits() {
+      return hits;
+   }
 
-	public String getRestaurantIntro() {
-		return restaurantIntro;
-	}
+   public void setHits(int hits) {
+      this.hits = hits;
+   }
 
-	public void setRestaurantIntro(String restaurantIntro) {
-		this.restaurantIntro = restaurantIntro;
-	}
+   public String getRestaurantTelNum() {
+      return restaurantTelNum;
+   }
 
-	public List<Review> getReviewList() {
-		return reviewList;
-	}
+   public void setRestaurantTelNum(String restaurantTelNum) {
+      this.restaurantTelNum = restaurantTelNum;
+   }
 
-	public void setReviewList(List<Review> reviewList) {
-		this.reviewList = reviewList;
-	}
+   public String getIntroduction() {
+      return introduction;
+   }
 
+   public void setIntroduction(String introduction) {
+      this.introduction = introduction;
+   }
 
+   public String getMenu() {
+      return menu;
+   }
 
-	
-	
+   public void setMenu(String menu) {
+      this.menu = menu;
+   }
 
-	public List<RestaurantImage> getImageList() {
-		return imageList;
-	}
+   public String getImage() {
+      return image;
+   }
 
-	public void setImageList(List<RestaurantImage> imageList) {
-		this.imageList = imageList;
-	}
+   public void setImage(String image) {
+      this.image = image;
+   }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((foodCategory == null) ? 0 : foodCategory.hashCode());
-		result = prime * result + hits;
-		result = prime * result + ((location == null) ? 0 : location.hashCode());
-		result = prime * result + restaurantId;
-		result = prime * result + ((restaurantIntro == null) ? 0 : restaurantIntro.hashCode());
-		result = prime * result + ((restaurantName == null) ? 0 : restaurantName.hashCode());
-		result = prime * result + ((restaurantTel == null) ? 0 : restaurantTel.hashCode());
-		result = prime * result + ((reviewList == null) ? 0 : reviewList.hashCode());
-		return result;
-	}
+   public ArrayList<Review> getReviews() {
+      return reviews;
+   }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Restaurant other = (Restaurant) obj;
-		if (foodCategory == null) {
-			if (other.foodCategory != null)
-				return false;
-		} else if (!foodCategory.equals(other.foodCategory))
-			return false;
-		if (hits != other.hits)
-			return false;
-		if (location == null) {
-			if (other.location != null)
-				return false;
-		} else if (!location.equals(other.location))
-			return false;
-		if (restaurantId != other.restaurantId)
-			return false;
-		if (restaurantIntro == null) {
-			if (other.restaurantIntro != null)
-				return false;
-		} else if (!restaurantIntro.equals(other.restaurantIntro))
-			return false;
-		if (restaurantName == null) {
-			if (other.restaurantName != null)
-				return false;
-		} else if (!restaurantName.equals(other.restaurantName))
-			return false;
-		if (restaurantTel == null) {
-			if (other.restaurantTel != null)
-				return false;
-		} else if (!restaurantTel.equals(other.restaurantTel))
-			return false;
-		if (reviewList == null) {
-			if (other.reviewList != null)
-				return false;
-		} else if (!reviewList.equals(other.reviewList))
-			return false;
-		return true;
-	}
+   public void setReviews(ArrayList<Review> reviews) {
+      this.reviews = reviews;
+   }
 
-	
-	
-	
-	@Override
-	public String toString() {
-		return "Restaurant [restaurantId=" + restaurantId + ", foodCategory=" + foodCategory + ", location=" + location
-				+ ", restaurantName=" + restaurantName + ", restaurantTel=" + restaurantTel + ", restaurantIntro="
-				+ restaurantIntro + ", hits=" + hits + ", reviewList=" + reviewList + "]";
-	}
+   public ArrayList<String> getImages() {
+      return images;
+   }
+
+   public void setImages(ArrayList<String> images) {
+      this.images = images;
+   }
+
+   
+   
+   public double getAvgKostar() {
+      return avgKostar;
+   }
+
+   public void setAvgKostar(double avgKostar) {
+      this.avgKostar = avgKostar;
+   }
+
+   @Override
+   public int hashCode() {
+      final int prime = 31;
+      int result = 1;
+      result = prime * result + ((foodCategory == null) ? 0 : foodCategory.hashCode());
+      result = prime * result + hits;
+      result = prime * result + ((image == null) ? 0 : image.hashCode());
+      result = prime * result + ((images == null) ? 0 : images.hashCode());
+      result = prime * result + ((introduction == null) ? 0 : introduction.hashCode());
+      result = prime * result + ((location == null) ? 0 : location.hashCode());
+      result = prime * result + ((menu == null) ? 0 : menu.hashCode());
+      result = prime * result + restaurantId;
+      result = prime * result + ((restaurantName == null) ? 0 : restaurantName.hashCode());
+      result = prime * result + ((restaurantTelNum == null) ? 0 : restaurantTelNum.hashCode());
+      result = prime * result + ((reviews == null) ? 0 : reviews.hashCode());
+      return result;
+   }
+
+   @Override
+   public boolean equals(Object obj) {
+      if (this == obj)
+         return true;
+      if (obj == null)
+         return false;
+      if (getClass() != obj.getClass())
+         return false;
+      Restaurant other = (Restaurant) obj;
+      if (foodCategory == null) {
+         if (other.foodCategory != null)
+            return false;
+      } else if (!foodCategory.equals(other.foodCategory))
+         return false;
+      if (hits != other.hits)
+         return false;
+      if (image == null) {
+         if (other.image != null)
+            return false;
+      } else if (!image.equals(other.image))
+         return false;
+      if (images == null) {
+         if (other.images != null)
+            return false;
+      } else if (!images.equals(other.images))
+         return false;
+      if (introduction == null) {
+         if (other.introduction != null)
+            return false;
+      } else if (!introduction.equals(other.introduction))
+         return false;
+      if (location == null) {
+         if (other.location != null)
+            return false;
+      } else if (!location.equals(other.location))
+         return false;
+      if (menu == null) {
+         if (other.menu != null)
+            return false;
+      } else if (!menu.equals(other.menu))
+         return false;
+      if (restaurantId != other.restaurantId)
+         return false;
+      if (restaurantName == null) {
+         if (other.restaurantName != null)
+            return false;
+      } else if (!restaurantName.equals(other.restaurantName))
+         return false;
+      if (restaurantTelNum == null) {
+         if (other.restaurantTelNum != null)
+            return false;
+      } else if (!restaurantTelNum.equals(other.restaurantTelNum))
+         return false;
+      if (reviews == null) {
+         if (other.reviews != null)
+            return false;
+      } else if (!reviews.equals(other.reviews))
+         return false;
+      return true;
+   }
+
+   @Override
+   public String toString() {
+      return "Restaurant [restaurantId=" + restaurantId + ", foodCategory=" + foodCategory + ", location=" + location
+            + ", restaurantName=" + restaurantName + ", hits=" + hits + ", restaurantTelNum=" + restaurantTelNum
+            + ", introduction=" + introduction + ", menu=" + menu + ", image=" + image + ", reviews=" + reviews
+            + ", images=" + images + "]";
+   }
+
+   
+   
 }

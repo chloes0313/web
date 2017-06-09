@@ -1,89 +1,62 @@
 package tp.vo;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.util.List;
+import java.util.Date;
 
 public class Member implements Serializable{
-	private String memberId;
-	private String memberPw;
-	private String memberName;
+
+	private String memberId, memberPw, memberName;
 	private Date visitDate;
-	// JOIN위한 변수
 	private List<Review> reviewList;
 	
 	
-	public Member() {
-	}
-
-
+	public Member(){}
 	public Member(String memberId, String memberPw, String memberName, Date visitDate) {
+		super();
 		this.memberId = memberId;
 		this.memberPw = memberPw;
 		this.memberName = memberName;
 		this.visitDate = visitDate;
 	}
-
-
 	public Member(String memberId, String memberPw, String memberName, Date visitDate, List<Review> reviewList) {
+		super();
 		this.memberId = memberId;
 		this.memberPw = memberPw;
 		this.memberName = memberName;
 		this.visitDate = visitDate;
 		this.reviewList = reviewList;
 	}
-
-
 	public String getMemberId() {
 		return memberId;
 	}
-
-
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
-
-
 	public String getMemberPw() {
 		return memberPw;
 	}
-
-
 	public void setMemberPw(String memberPw) {
 		this.memberPw = memberPw;
 	}
-
-
 	public String getMemberName() {
 		return memberName;
 	}
-
-
 	public void setMemberName(String memberName) {
 		this.memberName = memberName;
 	}
-
-
 	public Date getVisitDate() {
 		return visitDate;
 	}
-
-
 	public void setVisitDate(Date visitDate) {
 		this.visitDate = visitDate;
 	}
-
-
 	public List<Review> getReviewList() {
 		return reviewList;
 	}
-
-
 	public void setReviewList(List<Review> reviewList) {
 		this.reviewList = reviewList;
 	}
-
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -95,8 +68,6 @@ public class Member implements Serializable{
 		result = prime * result + ((visitDate == null) ? 0 : visitDate.hashCode());
 		return result;
 	}
-
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -133,16 +104,12 @@ public class Member implements Serializable{
 			return false;
 		return true;
 	}
-
-
 	@Override
 	public String toString() {
 		return "Member [memberId=" + memberId + ", memberPw=" + memberPw + ", memberName=" + memberName + ", visitDate="
 				+ visitDate + ", reviewList=" + reviewList + "]";
 	}
-	
-	
-	
-	
 
+	
+	
 }

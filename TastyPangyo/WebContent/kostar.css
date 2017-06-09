@@ -1,0 +1,7 @@
+@CHARSET "utf-8";
+
+ /* 별점 보여주는 스타일 */
+.star-rating { width:130px; }
+.star-rating,.star-rating span { display:inline-block; height:24px; overflow:hidden; background:url(star.png)no-repeat; }
+.star-rating span{ background-position:left bottom; line-height:0; vertical-align:top; }
+

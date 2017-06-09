@@ -22,7 +22,7 @@ function showAddress(zipcode, address){
 <h2>주소검색결과</h2>
 동 : <input type="text" name="dong"> <input type="button" value="조회"><p>
 <a href="javascript:showAddress('111-222', '경기도 성남시 분당구 삼평동');">111-222 경기도 성남시 분당구 삼평동</a><br>
-<a href="javascript:ahowAddress('111-333', '111-333 경상남도 진주시 삼평동');">111-333 경상남도 진주시 삼평동</a><br>
+<a href="javascript:showAddress('111-333', '111-333 경상남도 진주시 삼평동');">111-333 경상남도 진주시 삼평동</a><br>
 <a href="javascript:showAddress('222-333', '전라북도 전주시 삼평동');">222-333 전라북도 전주시 삼평동</a><p>
 <button onclick="window.close();">닫기</button>
 </body>

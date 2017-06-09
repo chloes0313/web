@@ -1,72 +1,77 @@
 package tp.dao.impl;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
 import tp.dao.RestaurantDao;
+import tp.exception.NotFoundRestaurantIdException;
 import tp.vo.Restaurant;
 
 public class RestaurantDaoImpl implements RestaurantDao{
 	private static RestaurantDaoImpl instance;
-	public static RestaurantDaoImpl getInstance(){
-		if(instance==null){
-			instance = new RestaurantDaoImpl();
+	   private RestaurantDaoImpl(){}
+	   public static RestaurantDaoImpl getInstance(){
+	      if(instance==null){
+	         instance=new RestaurantDaoImpl();
+	      }return instance;
+	   }
+	   
+	   @Override
+	   public int addRestaurant(Restaurant restaurant, SqlSession session) {
+	      return session.insert(makeSql("insertRestaurantInfo"),restaurant);
+	   }
+
+	   @Override
+	   public int modRestaurant(Restaurant restaurant, SqlSession session) {
+	      return session.update(makeSql("modRestaurantInfo"),restaurant);
+	   }
+
+	   @Override
+	   public int deleteRestaurant(int restaurantId, SqlSession session){
+	      return session.delete(makeSql("deleteRestaurantInfo"),restaurantId);
+	   }
+
+	   @Override
+	   public Restaurant selectRestaurantByID(int restaurantId, SqlSession session){
+	      return session.selectOne(makeSql("selectRestaurantInfoByRestaurantId"),restaurantId);
+	   }
+
+	   @Override
+	   public List<Restaurant> selectRestaurantByName(String restaurantName, SqlSession session) {
+	      return session.selectList(makeSql("selectRestaurantInfoByRestaurantName"),restaurantName);
+	   }
+
+	   @Override
+	   public List<Restaurant> selectRestaurantBySort(String foodCategory, SqlSession session) {
+	      return session.selectList(makeSql("selectRestaurantInfoByRestaurantSort"),foodCategory);
+	   }
+
+	   @Override
+	   public List<Restaurant> selectRestaurantByLocation(String location, SqlSession session) {
+	      return session.selectList(makeSql("selectRestaurantInfoByRestaurantLocation"),location);
+	   }
+	   
+	   @Override
+		public List<Restaurant> selectAllRestaurant(SqlSession session) {
+			return session.selectList(makeSql("selectAllRestaurant"));
 		}
-		return instance;
-	}
-	private RestaurantDaoImpl(){}
-	
-	
-	@Override
-	public int addRestaurant(Restaurant restaurant) {
-		
-		return 0;
-	}
-
-	@Override
-	public int modRestaurant(Restaurant restaurant) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int deleteRestaurant(int restaurant_id) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public Restaurant selectRestaurantByID(SqlSession session, int restaurantId){
-		return session.selectOne("tp.config.mapper.reviewMapper.selectRestaurantByID", restaurantId);
-	}
-
-	@Override
-	public Restaurant selectRestaurantByName(String restaurant_name) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	   
+	   private String makeSql(String id){
+	      return "tp.config.mapper.restaurantMapper."+id;
+	   }
+	   
+		@Override
+		public List<Restaurant> selectAllRestaurantByHit(SqlSession session) {
+			return session.selectList(makeSql("selectAllRestaurantByHit"));
+		}
+		@Override
+		public List<Restaurant> selectRestaurantIdByAvgKostar(SqlSession session) {
+			return session.selectList(makeSql("selectRestaurantIdByAvgKostar"));
+		}
+	   
+	   
 	
 
-	@Override
-	public ArrayList<Restaurant> selectRestaurantByName2(String restaurant_name) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<Restaurant> selectRestaurantBySort(String sort) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<Restaurant> selectRestaurantByLocation(String location) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 }

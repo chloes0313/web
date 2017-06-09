@@ -34,8 +34,8 @@
             <result column="food_category" property="foodCategory"/>
             <result column="location" property="location"/>
             <result column="restaurant_name" property="restaurantName"/>
-            <result column="restaurant_tel" property="restaurantTel"/>
-            <result column="restaurant_intro" property="restaurantIntro"/>
+            <result column="restaurant_tel_num" property="restaurantTelNum"/>
+            <result column="introduction" property="introduction"/>
             <result column="hits" property="hits"/>
         </association>
     </resultMap>
@@ -48,8 +48,8 @@
             <result column="food_category" property="foodCategory"/>
             <result column="location" property="location"/>
             <result column="restaurant_name" property="restaurantName"/>
-            <result column="restaurant_tel" property="restaurantTel"/>
-            <result column="restaurant_intro" property="restaurantIntro"/>
+            <result column="restaurant_tel_num" property="restaurantTelNum"/>
+            <result column="introduction" property="introduction"/>
             <result column="hits" property="hits"/>
         </association>
          <!-- Member객체 association -->
@@ -104,9 +104,21 @@
         AND		review_no = #{reviewNo} 
     </update>
     
-    <delete id="deleteReviewSelected" parameterType="_int" >
+    <delete id="deleteReviewSelected" parameterType="java.util.ArrayList" >
         DELETE FROM	review
-	    WHERE  		review_no = #{value}
+        <where>
+			<choose>
+				<when test="list != null and list.size() > 0">
+	 		 		review_no IN 
+	 		 		<foreach collection="list" open="(" close=")" separator="," item="reviewNo">
+	 		 			#{reviewNo}
+	 		 		</foreach>
+	 		 	</when>
+	 		 	<otherwise>
+					1 = -1	<!-- 아무것도 select안되게 거짓 조건 설정 -->
+				</otherwise>
+	 		 </choose>
+	 	</where>
     </delete>
    
     
@@ -148,59 +160,71 @@
     
     
     <!-- SELECT -->
-    <select id="selectAllReviewOrderByNo" resultMap="review-resultmap">
-	    <include refid="select-sql"/>
-	    ORDER BY	review_no
-    </select>
+    <select id="selectAllReview" parameterType="java.lang.String" resultMap="review-resultmap">
+   	 	<include refid="select-sql"/>
+   	 	${value}
+   	 		<!-- <choose>
+   	 			<when test="value != null and value =='member_id'">
+   	 			ORDER BY ${ value } DESC
+   	 			</when>
+   	 			<otherwise>
+   	 			ORDER BY ${ value }  
+   	 			</otherwise>
+   	 		</choose> -->
+	  </select>
     
-    <select id="selectAllReviewOrderByMemberId" resultMap="review-resultmap">
-	    <include refid="select-sql"/>
-	    ORDER BY	member_id
-    </select>
-    
-    <select id="selectAllReviewOrderByNewestRegistered" resultMap="review-resultmap">
-	    <include refid="select-sql"/>
-	    ORDER BY	registered_date DESC
-    </select>
+
     
     <select id="selectReviewByNo" parameterType="_int" resultMap="review-resultmap">
         <include refid="select-sql"/>
         WHERE	review_no = #{value}
     </select>
     
+    <select id="selectReviewByMemberId" parameterType="java.lang.String" resultMap="review-resultmap">
+        <include refid="select-sql"/>
+        WHERE	member_id = #{value}
+        ORDER BY registered_date DESC
+    </select>
+    
     <select id="selectReviewByRegisteredDate" parameterType="java.util.Date" resultMap="review-resultmap">
         <include refid="select-sql"/>
         WHERE	registered_date = #{value}
+        ORDER BY registered_date DESC
     </select>
     
-    <select id="selectReviewByRegisteredDateRange" parameterType="java.util.Date" resultMap="review-resultmap">
+    <select id="selectReviewByRegisteredDateRange" parameterType="map" resultMap="review-resultmap">
         <include refid="select-sql"/>
         WHERE	registered_date BETWEEN #{fromDate} AND #{toDate}
+        ORDER BY registered_date DESC
     </select>
     
    	<select id="selectReviewByTitle" parameterType="java.lang.String" resultMap="review-resultmap">
    	    <include refid="select-sql"/>
    	    WHERE	title LIKE '%'||#{value}||'%'
+   	     ORDER BY registered_date DESC
    	</select>
    	
    	<select id="selectReviewByComments" parameterType="java.lang.String" resultMap="review-resultmap">
    	    <include refid="select-sql"/>
    	    WHERE	comments LIKE '%'||#{value}||'%'
+   	     ORDER BY registered_date DESC
    	</select>
    	
    	<select id="selectReviewByRestaurantName" parameterType="java.lang.String" resultMap="review-resultmap">
    	    <include refid="select-sql"/>
    	    WHERE	restaurant_name LIKE '%'||#{value}||'%'
+   	     ORDER BY registered_date DESC
    	</select>
    	
    	<select id="selectReviewByRestaurantId" parameterType="_int" resultMap="review-resultmap">
    	    <include refid="select-sql"/>
    	    WHERE	restaurant_id = #{value}
+   	    ORDER BY registered_date DESC
    	</select>
    	
-   	<select id="selectAverageOfKostarByRestaurantId" parameterType="_int" resultMap="review-resultmap">
-   	    SELECT	AVG(kostar)
-   	    FROM	review
+   	<select id="selectAverageOfKostarByRestaurantId" parameterType="_int" resultType="_double">
+   	    SELECT	ROUND(AVG(kostar), 1)
+   	    FROM		review
    	    WHERE	restaurant_id = #{value}
    	</select>
    	
@@ -216,4 +240,5 @@
    	    FROM	review
    	    WHERE	member_id = ${value}
    	</select>
+	
 </mapper>
