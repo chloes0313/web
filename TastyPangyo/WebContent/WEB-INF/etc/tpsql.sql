@@ -55,6 +55,10 @@ SELECT * FROM restaurant;
 SELECT * FROM restaurant_image;
 SELECT * FROM review;
 
+SELECT DISTINCTROW restautan
+
+
+
 SELECT restaurant_id_seq.nextval FROM DUAL;
 SELECT review_no_seq.nextval FROM DUAL;
 

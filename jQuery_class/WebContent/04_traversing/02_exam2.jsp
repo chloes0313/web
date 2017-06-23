@@ -64,7 +64,7 @@ $(document).ready(function(){
 </div>
 <br>
 <div>
-	포탈 : 
+	포탈 : w
 	<a href="#">구글</a>
 	<a href="#">다음</a>
 	<a href="#">네이트</a>

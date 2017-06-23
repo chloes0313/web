@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+
+
+	<!-- Collection 객체 bean에 주입 -->
+
+	<!-- SET -->
+	<bean name="collectionExam" class="spring.vo.CollectionExam">
+		<constructor-arg>
+			<set><!-- HashSet() -->
+				<value>aaa</value>
+				<value>bbb</value>
+				<value type="java.lang.Integer">123456</value>
+				<bean class="spring.vo.Address" c:zipcode="10101" c:address="서울입니다아"/>
+			</set>
+		</constructor-arg>
+	</bean>
+	
+	
+	<bean name="collectionExam2" class="spring.vo.CollectionExam">
+		<constructor-arg>
+			<set value-type="java.lang.Integer"><!-- HashSet<Integer>() -->
+				<value>123</value>
+				<value>456</value>
+				<value>123456</value>
+			</set>
+		</constructor-arg>
+	</bean>
+	
+	
+	<!-- LIST -->
+	<bean name="collectionExam3" class="spring.vo.CollectionExam">
+		<constructor-arg>
+			<set><!-- HashSet() -->
+				<value>aaa</value>
+				<value>bbb</value>
+				<value type="java.lang.Integer">123456</value>
+				<bean class="spring.vo.Address" c:zipcode="10101" c:address="서울입니다아"/>
+			</set>
+		</constructor-arg>
+		<property name="list"><!-- setList() -->
+			<list>
+				<value>12</value>
+				<value>23</value>
+				<value>55</value>
+				<ref bean="address"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean name="address" class="spring.vo.Address"
+			c:zipcode="777-888" c:address="대한민국"/>
+			
+	<!-- MAP -->
+	<bean name="collectionExam4" class="spring.vo.CollectionExam">
+		<constructor-arg>
+			<set><!-- HashSet() -->
+				<value>aaa</value>
+				<value>bbb</value>
+				<value type="java.lang.Integer">123456</value>
+				<bean class="spring.vo.Address" c:zipcode="10101" c:address="서울입니다아"/>
+			</set>
+		</constructor-arg>
+		<property name="list"><!-- setList() -->
+			<list>
+				<value>12</value>
+				<value>23</value>
+				<value>55</value>
+				<ref bean="address"/>
+			</list>
+		</property>
+		<property name="map">
+			<map>
+				<entry>
+					<key>
+						<value>키</value>
+					</key>
+					<value>
+						값
+					</value>
+				</entry>
+				<entry key="키2" value="값2"/>
+				<entry key="키3" value-ref="address"/>
+				<entry key="키4">
+					<bean class="spring.vo.Address" c:zipcode="444-444" c:address="부산광역시"/>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	
+	<!-- Propertise -->
+	<bean name="collectionExam5" class="spring.vo.CollectionExam">
+		<property name="properties">
+			<props>
+			 <prop key="키1">값1</prop>
+			 <prop key="키2">값2</prop>
+			</props>
+		</property>
+	</bean>
+	
+	
+	
+	<!-- util 스키마 사용해서 ref해서 사용하기 -->
+	<util:list id="mylist">
+		<value>1</value>
+		<value>2</value>
+		<value>3</value>
+	</util:list>
+	
+	
+	<bean name="collectionExam6" class="spring.vo.CollectionExam">
+		<property name="list" ref="mylist"/>
+	</bean>
+	
+</beans>

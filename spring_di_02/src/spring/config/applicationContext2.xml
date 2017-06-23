@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!-- 파일 만들 떄 next해서 사용할 스키마 선택하고 finish -->
+
+	<!-- setter 메서드를 통한 값 주입 -->
+	<bean name="per1" class="spring.vo.Person">
+		<property name="name" value="김종현"/>
+		<property name="age" value="23"/>
+		<property name="weight" value="75.5"/>
+	</bean>	
+	
+	<bean name="per2" class="spring.vo.Person" p:weight="70.5">
+		<property name="name">
+			<value>김종현</value>
+		</property>
+		<property name="age" value="23"/>
+		<property name="address">
+			<bean class="spring.vo.Address" p:zipcode="98798" p:address="property 사용해서 했어용"/>
+		</property>
+	</bean>
+	
+	<bean name="addr1" class="spring.vo.Address" 
+		p:zipcode="010-101" p:address="어딘지 알아서 뭐하게"/>
+	
+	<bean name="per3" class="spring.vo.Person" p:name="메롱" p:age="11" p:weight="50.7" p:address-ref="addr1"/>
+	
+	<bean name="per4" class="spring.vo.Person" 
+		p:name="메롱222" p:age="19" p:weight="80.8">
+		<property name="address">
+			<bean class="spring.vo.Address" 
+			p:zipcode="98798" p:address="대한민국"/>
+		</property>
+	</bean>
+	
+	
+	
+	<!-- 
+		Person per3 = new Person("이름", 나이, 몸무게)
+		per3.getAddress(addr1);
+	 -->
+	 <bean name="per5" class="spring.vo.Person">
+		<constructor-arg value="뿅뿅뿅"/>
+		<constructor-arg value="23"/>
+		<constructor-arg value="77.0"/>
+		<property name="address">
+			<bean class="spring.vo.Address" p:zipcode="98798" p:address="property 사용해서 했어용"/>
+		</property>
+	</bean>
+
+</beans>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"	
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!-- xmlns:c="http://www.springframework.org/schema/c"추가 -->
+
+	<!-- bean 등록 : <bean> 태그 사용
+			- bean 등록 시 값을 전달 (값 주입) : 생성자/setter 메서드
+			- 전달되는 값의 형태  : 리터럴(Primitaive Data type + String), 참조형(- 객체)
+			
+	 -->
+	<!-- 매개변수 없는 생성자(no-arg) 이용한 객체 생성 : new Address() -->
+	<bean name ="address1" class="spring.vo.Address"/>
+	
+	<!-- 매개변수 받는 생성자 이용 객체 생성 : new Address(zipcode, address)
+		 <constructor-arg> 전달 인자값(argument) 1개  -->
+	
+	<bean name ="address2" class="spring.vo.Address">
+		<constructor-arg>
+			<value>123-456</value>
+		</constructor-arg>
+		<constructor-arg>
+			<value>경기도 성남시</value>
+		</constructor-arg>
+	</bean>
+	
+	<bean name="address3" class="spring.vo.Address">
+		<constructor-arg value="444-789"/>
+		<constructor-arg value="서울시 관악구"/>
+	</bean>
+	
+	<!-- c스키마 사용 
+			- <beans> 태그 속성으로 xmlns:c="http://www.springframework.org/schema/c" 추가 후
+			- 사용 : <bean>태그에  c:생성자 매개변수명="값"-->
+			
+	<bean name="address4" class="spring.vo.Address" 
+			c:zipcode="77777" c:address="광주광역시 북구 일곡동"/>
+	
+
+
+
+
+<!-- Person 객체 -->
+	<bean name="person1" class="spring.vo.Person"/>
+	
+	<bean name="person2" class="spring.vo.Person">
+		<constructor-arg value="김재환"/>
+		<constructor-arg>
+			<value>22</value>
+		</constructor-arg>
+		<constructor-arg value="70.0"/>
+	</bean>
+	
+	
+	
+	<!-- 만들어진 address 참조해서 주입할 때
+		 Address addres = new Addreaa(__,__);
+		 new Person("이름", 나이, 몸무게, address); -->
+	<bean name="person4" class="spring.vo.Person">
+		<constructor-arg value="김재환"/>
+		<constructor-arg value="22"/>
+		<constructor-arg value="70.0"/>
+		<!-- 기존에 bean으로 생성된 객체를 참조(ref)하여 주입(address2에 의존) -->
+		<constructor-arg>
+			<ref bean="address2"/>
+		</constructor-arg>
+	</bean>
+	
+	<bean name="person5" class="spring.vo.Person" c:name="나야나" 
+			c:age="28" c:weight="55.0" c:address-ref="address4"/>
+
+	<!-- 생성할 떄 새로운 address 만들어서 주입할 때
+		 new Person("이름", 나이, 몸무게, new Address()); -->
+	
+	<bean name="person3" class="spring.vo.Person">
+		<constructor-arg value="김재환"/>
+		<constructor-arg value="22"/>
+		<constructor-arg value="70.0"/>
+		<!-- 새로 bean객체를 생성해서 주입 -->
+		<constructor-arg>
+			<bean class="spring.vo.Address" c:zipcode="000-000" c:address="주소: constructor-arg 안에서 주소 객체 생성해서 넣어준거에용!!!!"/>
+		</constructor-arg>
+	</bean>
+
+
+</beans>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- Spring 파일생성
+			- new - others - Spring - 
+	 -->
+	<!-- 
+		Spring 설정파일
+		 - Spring COntainer 설정파일 -> xml 기반
+		 	: root tag - <beans>
+		 - 파일명이나 경로의 제약은 없음 -> Spring 컨테이너 객체 생성 시 알려줌
+		 - 서비스 해야 할 것이 무엇인지(무슨일을 해야하는지) 알려주는 것
+	 -->
+	 
+	 <!-- 
+	 	<bean> : Spring 컨테이너가 제공하는 (서비스)객체를 등록
+	  -->
+	  
+
+	
+	 <!-- myDao = new MyBatisDaoImpl(); -->
+	 <bean name="myDao" class="dao.MyBatisDaoImpl"/> 
+	 
+	 <!-- myService = new MyServiceImpl(myDao); -->
+	 <bean name="myService" class="service.MyServiceImpl" c:dao-ref="myDao"/>
+ 
+	 
+	 
+	 <!-- 
+	 private DataSourceManager(){
+		dataSource = new BasicDataSource();
+		dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
+		dataSource.setUrl("jdbc:oracle:thin:@127.0.0.1:1521:XE");
+		dataSource.setUsername("chloe");
+		dataSource.setPassword("90385");
+		dataSource.setMaxTotal(100);
+		dataSource.setInitialSize(5);
+	}
+	 
+	 
+	  -->
+	 	 
+	 <bean name="BasicDataSource1" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:XE"/>
+		<property name="username" value="chloe"/>
+		<property name="password" value="90385"/>
+		<property name="maxTotal" value="100"/>
+		<property name="initialSize" value="5"/>
+ 	 </bean>
+ 	 
+ 	 <bean name="BasicDataSource2" class="org.apache.commons.dbcp2.BasicDataSource"
+ 	 		p:driverClassName="oracle.jdbc.driver.OracleDriver"
+ 	 		p:url="jdbc:oracle:thin:@127.0.0.1:1521:XE"
+ 	 		p:username="chloe"
+ 	 		p:password="90385"
+ 	 		p:maxTotal="100" p:initialSize="5"/>
+ 
+	 
+
+	
+	 
+</beans>
