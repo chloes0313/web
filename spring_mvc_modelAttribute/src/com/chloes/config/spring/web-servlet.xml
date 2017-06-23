@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+<context:component-scan base-package="com.chloes.controller"/>
+<mvc:annotation-driven/>
+<!-- 단순 링크-->
+<mvc:view-controller path="/index.do" view-name="index"/>
+<!-- 회원 등록 폼 -->
+<mvc:view-controller path="/member/register_form.do" view-name="member/register_form"/>
+
+	<bean name="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+			p:prefix="/WEB-INF/view/" p:suffix=".jsp"/>
+			
+<!-- .properties 파일: 문자열 메시지를 등록해 놓은 파일 (Java단 / Srping단에서 사용)
+	  메시지 : 코드 = 메시지 현태로 등록
+	  		메시지 여러개인 경우 enter로 구분
+	  		주석을 #으로 시작
+	  ResourceBundleMessageSource : .properties파일의 메시지들을 관리하는 빈으로 스프링 컨테이너에 bean으로 등록한다.
+	  	- bean name은 반드시 messageSource로 등록해야 스프링 컨테이너가 인식함
+	  	- basename property에 message파일을 등록 -> package.파일명 (확장자인 .properties는 뺀다)
+  -->
+  <bean name="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"
+  		p:basename="com.chloes.validation.message.error_message"/>
+
+</beans>

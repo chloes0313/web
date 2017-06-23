@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+<context:component-scan base-package="com.chloes.controller"/>
+
+<mvc:annotation-driven/>
+<mvc:view-controller path="/request1.do" view-name="request1"/>
+<mvc:view-controller path="/request2.do" view-name="request2"/>
+<!-- mulitpartResolver 등록 : 요청 content-type이 multipart/form-data인 경우 요청 파라미터를 처리하는 bean
+		-> 파일 업로드
+	 아용자가 multipart/form-data로 요청하면 handler 메서드 호출 전에 먼저 실행되어sss 요청 파라미터들(업로드된 파일 포함)을 처리
+	bean등록 시 name을 반드시 multipartResulver로 해야한다!!
+ -->
+ <bean name="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+<!-- viewResolver 등록 -->
+<bean name="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" 
+		p:prefix="/WEB-INF/view/" p:suffix=".jsp"/>
+
+</beans>

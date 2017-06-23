@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<context:component-scan base-package="spring.mvc.model"/>
+	<!-- JDBC-Mybatis 설정 -->
+	<!-- DataSource -->
+	 <bean name="dataSource" class="org.apache.tomcat.dbcp.dbcp2.BasicDataSource"
+	 	   p:driverClassName="oracle.jdbc.driver.OracleDriver"
+	 	   p:url="jdbc:oracle:thin:@127.0.0.1:1521:XE"
+	 	   p:username="scott"  
+	 	   p:password="tiger"
+	 	   p:maxTotal="100"/>
+	 	   
+	 	   
+	<!--SqlSessionFactoryBean-->
+	<bean name="sqlSessionFactory" 
+		  class="org.mybatis.spring.SqlSessionFactoryBean"
+		  p:dataSource-ref="dataSource"
+		  p:configLocation="classpath:spring/mvc/config/mybatis/mybatis-config.xml"/>
+	<!-- SqlSessionTemplate -->
+	<bean name="sqlSessionTemplate"
+		  class="org.mybatis.spring.SqlSessionTemplate" 
+		  c:sqlSessionFactory-ref="sqlSessionFactory"/>
+		  
+<!-- Mulitpart Resolver -->		  
+	<bean name="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>		  
+
+<!-- View Resolver -->
+	<bean name="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+			 p:prefix="/WEB-INF/view"/>	
+</beans>

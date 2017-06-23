@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	<context:component-scan base-package="domain.controller"/>
+	
+	<mvc:annotation-driven/>
+	<!-- 링크 처리 -->
+	<!-- view name에 tiles설정의 definition 태그(View하나)의 name속성 ㄱ밧 지정 -->
+	<mvc:view-controller path="/main.do" view-name="main.tiles"/>
+	<mvc:view-controller path="/member/join_form.do" view-name="member/join_form.tiles"/>
+	<mvc:view-controller path="/product/register_form.do" view-name="product/register_form.tiles"/>
+	
+	<!-- TilesConfigurer 빈으로 등록 : 타일즈 설정파일을 등록하는 빈-->
+	<bean name="tilesConfig" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>classpath:domain/config/tiles/tiles-config.xml</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- TilesViewResolver 빈으로 등록 -->
+	<bean name="tilesViewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"
+			p:order="1"/>
+
+
+	<bean name="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+			p:order="2"/>
+			<!-- order : viewResolver 여러개일 때 찾아보는 순서 , internalResourceViewResolver는 항상 마지막 순서로한다!-->
+			
+</beans>
