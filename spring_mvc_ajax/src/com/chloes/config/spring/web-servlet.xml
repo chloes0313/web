@@ -15,6 +15,7 @@
 <!-- 링크처리 -->
 <mvc:view-controller path="/request1.do" view-name="request1"/>
 <mvc:view-controller path="/request2.do" view-name="request2"/>
+<mvc:view-controller path="/request3.do" view-name="request3"/>
 <!-- viewResolver 등록 -->
 <bean name="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/view/" p:suffix=".jsp"/>
 

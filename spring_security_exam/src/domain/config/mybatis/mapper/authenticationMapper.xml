@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="domain.config.mybatis.mapper.authenticationMapper">
+	<!-- 
+		User/Authorities  테이블 관련 mapper
+		+ 사용자 등록/사용자 권한등록
+		+ 사용자 조회/사용자 권한 조회
+		+ 사용자 정보 수정
+	 -->
+	<sql id="user-column-sql">
+		user_id, user_password, user_name, user_email, user_enable
+	</sql>
+	<!-- 사용자 조회 기본 SQL -->
+	<sql id="user-select-sql">
+		SELECT <include refid="user-column-sql"/>
+		FROM	sec_user
+	</sql>
+	<!-- 권한 테이블 조회 SQL -->
+	<sql id="authorities-select-sql">
+		SELECT	user_id, authority
+		FROM	authorities
+	</sql>
+	<!-- ResultMap 등록 -->
+	<resultMap id="user-resultmap" type="user">
+		<id column="user_id" property="userId"/>
+		<result column="user_password" property="userPassword"/>
+		<result column="user_name" property="userName"/>
+		<result column="user_email" property="userEmail"/>
+		<result column="user_enable" property="userEnable"/>
+	</resultMap>
+	<resultMap id="authority-resultmap" type="authority">
+		<id column="user_id" property="userId"/>
+		<result column="authority" property="authority"/>
+	</resultMap>
+	<!-- 사용자 ID로 회원 정보 조회 - 인증가능 회원만 : enable=1 -->
+	<select id="selectUserByUserId" parameterType="string" resultMap="user-resultmap">
+		<include refid="user-select-sql"/>
+		WHERE 	user_id=#{value}
+		AND		user_enable = 1
+	</select>	
+	<!-- 사용자 ID로 그 사용자의 권한 조회 -->
+	<select id="selectAuthoritiesByUserId" parameterType="string" resultMap="authority-resultmap">
+		<include refid="authorities-select-sql"/>
+		WHERE user_id = #{value}
+	</select>
+	<!-- INSERT -->
+	<!-- user 추가 -->
+	<insert id="insertUser" parameterType="user">
+		INSERT INTO sec_user VALUES(#{userId}, #{userPassword}, #{userName}, #{userEmail}, 1)
+	</insert>
+	<!-- 권한 추가 -->
+	<insert id="insertAuthority" parameterType="authority">
+	 	INSERT INTO authorities VALUES(#{userId}, #{authority})
+	</insert>
+	<!-- UPDATE -->
+	<update id="updateUserByUserId" parameterType="user">
+		UPDATE	sec_user
+		SET		user_password = #{userPassword},
+				user_name=#{userName},
+				user_email = #{userEmail}
+		WHERE	user_id = #{userId}
+	</update>
+</mapper>
