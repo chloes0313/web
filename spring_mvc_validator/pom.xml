@@ -29,7 +29,6 @@
 		<spring.version>4.3.9.RELEASE</spring.version>
 		<jstl.version>1.2</jstl.version>
 	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework</groupId>

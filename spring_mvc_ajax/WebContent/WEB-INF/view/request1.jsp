@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-
+0
 <script type="text/javascript" src="/spring_mvc_ajax/scripts/jquery-3.2.1.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){

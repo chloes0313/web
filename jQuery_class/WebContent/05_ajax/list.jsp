@@ -9,7 +9,7 @@
 $(document).ready(function(){
 	$("button#memberListBtn").on("click", function(){
 		$.ajax({
-			"url":"/jQuery_class/json/MemberListServlet",
+			"url":"/fridger/show/list.do",
 			"type": "POST",
 			"dataType": "json",
 			"success": function(list){
